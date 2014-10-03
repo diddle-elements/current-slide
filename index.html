@@ -27,6 +27,10 @@
 	<section>
 		<h1>Current Slide component</h1>
 
+		<p>Below is an example of the component with 5 slides in the deck. The component is useful for situations where you have a custom slide deck already implemented but require some visual feedback as to where in the deck a reader is at the current moment.</p>
+
+		<p>Note: this component is visual-only and does not provide handlers for navigation of your slide deck. Navigation should be implemented elsewhere in your code with this component providing a visual indicator of your navigation's current state.</p>
+
 		<p vertical layout center>
 			<current-slide id="slide" count="5" active="1"></current-slide>
 			<script>
@@ -48,14 +52,17 @@
 <warpech-prism language="markup">&lt;html&gt;
 	&lt;head&gt;
 		&lt;script src="path/to/platform.js"&gt;&lt;/script&gt;
-		&lt;link rel="import" href="path/to/banner.hmtl" /&gt;
+		&lt;link rel="import" href="path/to/current-slide.html" /&gt;
 	&lt;/head&gt;
 	&lt;body&gt;
+
+&lt;current-slide count="5" active="1"&gt;&lt;/current-slide&gt;
 
 	&lt;/body&gt;
 &lt;/html&gt;</warpech-prism>
 		<dl>
-
+			<dt>count</dt><dd>The number of slides in your stack</dd>
+			<dd>active</dd><dd>Which numbered slide is attributed with the "active" flag for styling</dd>
 		</dl>
 	</section>
 
