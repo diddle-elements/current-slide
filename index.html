@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Current Slide Demo</title>
+	<style>
+		body {
+			background-color: #ccf;
+			margin: 0;
+		}
+		section, footer {
+			max-width: 540px;
+			margin: 0 auto;
+			padding: 0 20px 20px;
+		}
+		footer {
+			font-size: small;
+		}
+	</style>
+	<script src="bower_components/platform/platform.js"></script>
+	<link rel="import" href="current-slide.html" />
+	<link rel="import" href="../github-ribbon/src/github-ribbon.html" />
+	<link rel="import" href="../warpech-prism/warpech-prism.html" />
+</head>
+<body unresolved>
+	<github-ribbon user="diddledan" repo="current-slide" color="red" position="left"></github-ribbon>
+
+	<section>
+		<h1>Current Slide component</h1>
+
+		<p vertical layout center>
+			<current-slide id="slide" count="5" active="1"></current-slide>
+			<script>
+			(function() {
+				var el = document.getElementById('slide');
+				var timer = window.setInterval(function() {
+					var current = el.getAttribute('active');
+					current++;
+					if (current > el.getAttribute('count')) {
+						current = 1;
+					}
+					el.setAttribute('active', current);
+				}, 2 * 1000);
+			})();
+			</script>
+		</p>
+
+		<h2>Usage</h2>
+<warpech-prism language="markup">&lt;html&gt;
+	&lt;head&gt;
+		&lt;script src="path/to/platform.js"&gt;&lt;/script&gt;
+		&lt;link rel="import" href="path/to/banner.hmtl" /&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+
+	&lt;/body&gt;
+&lt;/html&gt;</warpech-prism>
+		<dl>
+
+		</dl>
+	</section>
+
+	<footer>
+		Copyright &copy; 2014 <em>Daniel Llewellyn</em> of <a href="https://bowlhat.net/">Bowl Hat</a> and <a href="http://www.bang-on.net/">Bang Communications</a>
+	</footer>
+</body>
+</html>

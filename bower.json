@@ -1,0 +1,23 @@
+{
+  "name": "current-slide",
+  "version": "0.0.0",
+  "authors": [
+    "Daniel Llewellyn <daniel@bowlhat.net>"
+  ],
+  "main": "current-slide.html",
+  "keywords": [
+    "web-components"
+  ],
+  "license": "MIT",
+  "homepage": "http://diddledan.github.io/current-slide",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "~0.3.3"
+  }
+}

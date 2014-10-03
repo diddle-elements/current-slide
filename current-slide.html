@@ -1,0 +1,55 @@
+<link rel="import" href="../polymer/polymer.html" />
+
+<polymer-element name="current-slide" attributes="count active">
+	<template>
+		<style>
+			ul {
+				padding-left: 0;
+			}
+			li {
+				display: inline-block;
+				width: 1em;
+				height: 1em;
+				border-radius: 1em;
+				background-color: #fff;
+			}
+			li[active] {
+				background-color: #000;
+			}
+		</style>
+		<ul if="{{ slides.length > 0 }}">
+			<template repeat="{{ slide, index in slides | forcefilter }}">
+				<li active?="{{ index + 1 == active }}"></li>
+			</template>
+		</ul>
+	</template>
+	<script>
+	Polymer('current-slide', {
+		forcefilter: function(s) { return s; },
+		created: function() {
+			this.slides = [];
+		},
+		ready: function() {
+			if (this.count !== '') {
+				for (var i = 0; i < this.count; i++) {
+					this.slides.push({});
+				}
+			}
+		},
+		attributeChanged: function(attrName, oldVal, newVal) {
+			if (attrName == 'count') {
+				var i = oldVal;
+				if (newVal > oldVal) {
+					for (i = oldVal; i < newVal; i++) {
+						this.slides.push({});
+					}
+				} else {
+					for (i = oldVal; i > newVal; i--) {
+						this.slides.pop();
+					}
+				}
+			}
+		}
+	});
+	</script>
+</polymer-element>
