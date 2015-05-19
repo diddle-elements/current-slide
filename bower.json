@@ -15,7 +15,8 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "demo"
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^0.9.0"
