@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<style>body { background: #ccf; }</style>
+		<script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+		<link rel="import" href="../current-slide.html" />
+	</head>
+	<body>
+		
+		<p class="vertical layout center">
+			<current-slide id="slide" count="5" active="1"></current-slide>
+			<script>
+			(function() {
+				var el = document.getElementById('slide');
+				var timer = window.setInterval(function() {
+					var current = el.getAttribute('active');
+					current++;
+					if (current > el.getAttribute('count')) {
+						current = 1;
+					}
+					el.setAttribute('active', current);
+				}, 2 * 1000);
+			})();
+			</script>
+		</p>
+
+	</body>
+</html>

@@ -1,55 +1,91 @@
 <link rel="import" href="../polymer/polymer.html" />
 
-<polymer-element name="current-slide" attributes="count active">
+<dom-module id="current-slide">
+	<style>
+		ul {
+			padding-left: 0;
+		}
+		li {
+			display: inline-block;
+			width: 1em;
+			height: 1em;
+			border-radius: 1em;
+			background-color: #fff;
+		}
+		li[active] {
+			background-color: #000;
+		}
+	</style>
 	<template>
-		<style>
-			ul {
-				padding-left: 0;
-			}
-			li {
-				display: inline-block;
-				width: 1em;
-				height: 1em;
-				border-radius: 1em;
-				background-color: #fff;
-			}
-			li[active] {
-				background-color: #000;
-			}
-		</style>
-		<ul if="{{ slides.length > 0 }}">
-			<template repeat="{{ slide, index in slides | forcefilter }}">
-				<li active?="{{ index + 1 == active }}"></li>
+		<ul>
+			<template is="dom-repeat" items="[[_slides]]">
+				<li active$="[[_equalIndex(index,active)]]"></li>
 			</template>
 		</ul>
 	</template>
-	<script>
-	Polymer('current-slide', {
-		forcefilter: function(s) { return s; },
-		created: function() {
-			this.slides = [];
+</dom-module>
+<script>
+	/**
+	 * This component is useful for situations where you have a custom slide deck already
+	 * implemented but require some visual feedback as to where in the deck a reader is at
+	 * the current moment.
+	 *
+	 * Note: this component is visual-only and does not provide handlers for navigation of
+	 * your slide deck. Navigation should be implemented elsewhere in your code with this
+	 * component providing a visual indicator of your navigation's current state.
+	 */
+	Polymer({
+		is: "current-slide",
+		properties: {
+			/**
+			 * Holds an array of empty values symbolising each slide.
+			 */
+			_slides: {
+				type: Array,
+				value: function() { return []; }
+			},
+			/**
+			 * Sets the number of slides in your stack.
+			 */
+			count: {
+				type: Number,
+				value: 0,
+				observer: '_countChanged'
+			},
+			/**
+			 * Defines which numbered slide is attributed with the "active" flag used for styling.
+			 */
+			active: {
+				type: Number,
+				value: 0
+			}
 		},
-		ready: function() {
-			if (this.count !== '') {
-				for (var i = 0; i < this.count; i++) {
-					this.slides.push({});
+		/**
+		 * Updates the `_slides` array to contain `count` number of values whenever `count` changes.
+		 *
+		 * @param {Number} newValue the new value
+		 * @param {Number} oldValue the value to replace
+		 */
+		_countChanged: function(newValue, oldValue) {
+			if (newValue < oldValue) {
+				for (; this._slides.length > newValue;) {
+					this.pop('_slides');
+				}
+			} else {
+				for (; this._slides.length < newValue;) {
+					this.push('_slides', '');
 				}
 			}
 		},
-		attributeChanged: function(attrName, oldVal, newVal) {
-			if (attrName == 'count') {
-				var i = oldVal;
-				if (newVal > oldVal) {
-					for (i = oldVal; i < newVal; i++) {
-						this.slides.push({});
-					}
-				} else {
-					for (i = oldVal; i > newVal; i--) {
-						this.slides.pop();
-					}
-				}
-			}
+		/**
+		 * indicates equality between the first value, after incrementing once, and the second value.
+		 *
+		 * @param {Number} a value which, after incrementing once, is tested against `b`
+		 * @param {Number} b value to test `a` against
+		 * @return {Boolean} indicates equality
+		 */
+		_equalIndex: function(a, b) {
+			return (a + 1) == b;
 		}
-	});
-	</script>
-</polymer-element>
+	})
+</script>

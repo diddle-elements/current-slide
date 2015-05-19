@@ -1,73 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Current Slide Demo</title>
-	<style>
-		body {
-			background-color: #ccf;
-			margin: 0;
-		}
-		section, footer {
-			max-width: 540px;
-			margin: 0 auto;
-			padding: 0 20px 20px;
-		}
-		footer {
-			font-size: small;
-		}
-	</style>
-	<script src="../webcomponentsjs/webcomponents.js"></script>
-	<link rel="import" href="current-slide.html" />
-	<link rel="import" href="../github-ribbon/src/github-ribbon.html" />
-	<link rel="import" href="../warpech-prism/warpech-prism.html" />
+	<script src="../webcomponentsjs/webcomponents-lite.min.js"></script>
+	<link rel="import" href="../iron-component-page/iron-component-page.html" />
 </head>
-<body unresolved>
-	<github-ribbon user="diddledan" repo="current-slide" color="red" position="left"></github-ribbon>
+<body>
 
-	<section>
-		<h1>Current Slide component</h1>
+	<iron-component-page></iron-component-page>
 
-		<p>Below is an example of the component with 5 slides in the deck. The component is useful for situations where you have a custom slide deck already implemented but require some visual feedback as to where in the deck a reader is at the current moment.</p>
-
-		<p>Note: this component is visual-only and does not provide handlers for navigation of your slide deck. Navigation should be implemented elsewhere in your code with this component providing a visual indicator of your navigation's current state.</p>
-
-		<p vertical layout center>
-			<current-slide id="slide" count="5" active="1"></current-slide>
-			<script>
-			(function() {
-				var el = document.getElementById('slide');
-				var timer = window.setInterval(function() {
-					var current = el.getAttribute('active');
-					current++;
-					if (current > el.getAttribute('count')) {
-						current = 1;
-					}
-					el.setAttribute('active', current);
-				}, 2 * 1000);
-			})();
-			</script>
-		</p>
-
-		<h2>Usage</h2>
-<warpech-prism language="markup">&lt;html&gt;
-	&lt;head&gt;
-		&lt;script src="path/to/platform.js"&gt;&lt;/script&gt;
-		&lt;link rel="import" href="path/to/current-slide.html" /&gt;
-	&lt;/head&gt;
-	&lt;body&gt;
-
-&lt;current-slide count="5" active="1"&gt;&lt;/current-slide&gt;
-
-	&lt;/body&gt;
-&lt;/html&gt;</warpech-prism>
-		<dl>
-			<dt>count</dt><dd>The number of slides in your stack</dd>
-			<dt>active</dt><dd>Which numbered slide is attributed with the "active" flag for styling</dd>
-		</dl>
-	</section>
-
-	<footer>
-		Copyright &copy; 2014 <em>Daniel Llewellyn</em> of <a href="https://bowlhat.net/">Bowl Hat</a> and <a href="http://www.bang-on.net/">Bang Communications</a>
-	</footer>
 </body>
 </html>
