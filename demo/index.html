@@ -1,27 +1,47 @@
-<html>
+<!doctype html>
+<html lang="en">
 	<head>
-		<style>body { background: #ccf; }</style>
-		<script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>broadway-heading demo</title>
+
+		<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+
+		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
 		<link rel="import" href="../current-slide.html" />
+
+		<style is="custom-style" include="demo-pages-shared-styles">
+		</style>
 	</head>
 	<body>
-		
-		<p class="vertical layout center">
-			<current-slide id="slide" count="5" active="1"></current-slide>
-			<script>
-			(function() {
-				var el = document.getElementById('slide');
-				var timer = window.setInterval(function() {
-					var current = el.getAttribute('active');
-					current++;
-					if (current > el.getAttribute('count')) {
-						current = 1;
-					}
-					el.setAttribute('active', current);
-				}, 2 * 1000);
-			})();
-			</script>
-		</p>
-
+		<div class="vertical-section-container centered">
+			<h3>Basic current-slide demo</h3>
+			<demo-snippet>
+        		<template>
+					<style is="custom-style">
+						current-slide {
+							--current-slide-inactive-color: #ccc;
+							--current-slide-active-color: #99d;
+						}
+					</style>
+					<current-slide id="slide" count="5" active="1"></current-slide>
+					<script>
+					(function() {
+						var el = document.getElementById('slide');
+						var timer = window.setInterval(function() {
+							var current = el.active;
+							current++;
+							if (current > el.count) {
+								current = 1;
+							}
+							el.active = current;
+						}, 2 * 1000);
+					})();
+					</script>
+        		</template>
+			</demo-snippet>
+		</div>
 	</body>
 </html>

@@ -1,6 +1,6 @@
 {
   "name": "current-slide",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "authors": [
     "Daniel Llewellyn <daniel@bowlhat.net>"
   ],
@@ -19,10 +19,11 @@
     "demo"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.0.0"
+    "polymer": "Polymer/polymer#^2.0.1"
   },
   "devDependencies": {
-    "iron-component-page": "PolymerElements/iron-component-page#^0.9.3",
-    "web-component-tester": "*"
+    "iron-component-page": "PolymerElements/iron-component-page#^3.0.1",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.1",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0"
   }
 }

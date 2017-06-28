@@ -1,22 +1,22 @@
 <link rel="import" href="../polymer/polymer.html" />
 
 <dom-module id="current-slide">
-	<style>
-		ul {
-			padding-left: 0;
-		}
-		li {
-			display: inline-block;
-			width: 1em;
-			height: 1em;
-			border-radius: 1em;
-			background-color: #fff;
-		}
-		li[active] {
-			background-color: #000;
-		}
-	</style>
 	<template>
+		<style>
+			ul {
+				padding-left: 0;
+			}
+			li {
+				display: inline-block;
+				width: var(--current-slide-size, 1em);
+				height: var(--current-slide-size, 1em);
+				border-radius: var(--current-slide-size, 1em);
+				background-color: var(--current-slide-inactive-color, #fff);
+			}
+			li[active] {
+				background-color: var(--current-slide-active-color, #000);
+			}
+		</style>
 		<ul>
 			<template is="dom-repeat" items="[[_slides]]">
 				<li active$="[[_equalIndex(index,active)]]"></li>
@@ -33,50 +33,56 @@
 	 * Note: this component is visual-only and does not provide handlers for navigation of
 	 * your slide deck. Navigation should be implemented elsewhere in your code with this
 	 * component providing a visual indicator of your navigation's current state.
+	 *
+	 * @demo demo/index.html
 	 */
-	Polymer({
-		is: "current-slide",
-		properties: {
-			/**
-			 * Holds an array of empty values symbolising each slide.
-			 */
-			_slides: {
-				type: Array,
-				value: function() { return []; }
-			},
-			/**
-			 * Sets the number of slides in your stack.
-			 */
-			count: {
-				type: Number,
-				value: 0,
-				observer: '_countChanged'
-			},
-			/**
-			 * Defines which numbered slide is attributed with the "active" flag used for styling.
-			 */
-			active: {
-				type: Number,
-				value: 0
-			}
-		},
+	class CurrentSlide extends Polymer.Element {
+		static get is() { return "current-slide"; }
+
+		static get properties() {
+			return {
+				/**
+				* Holds an array of empty values symbolising each slide.
+				*/
+				_slides: {
+					type: Array,
+					value: function() { return []; }
+				},
+				/**
+				* Sets the number of slides in your stack.
+				*/
+				count: {
+					type: Number,
+					value: 0,
+					observer: '_countChanged'
+				},
+				/**
+				* Defines which numbered slide is attributed with the "active" flag used for styling.
+				*/
+				active: {
+					type: Number,
+					value: 0
+				}
+			};
+		}
+
 		/**
 		 * Updates the `_slides` array to contain `count` number of values whenever `count` changes.
 		 *
 		 * @param {Number} newValue the new value
 		 * @param {Number} oldValue the value to replace
 		 */
-		_countChanged: function(newValue, oldValue) {
+		_countChanged(newValue, oldValue) {
 			if (newValue < oldValue) {
-				for (; this._slides.length > newValue;) {
+				for (let iter = this._slides.length; iter > newValue; iter--) {
 					this.pop('_slides');
 				}
 			} else {
-				for (; this._slides.length < newValue;) {
+				for (let iter = this._slides.length; iter < newValue; iter++) {
 					this.push('_slides', '');
 				}
 			}
-		},
+		}
 		/**
 		 * indicates equality between the first value, after incrementing once, and the second value.
 		 *
@@ -84,8 +90,10 @@
 		 * @param {Number} b value to test `a` against
 		 * @return {Boolean} indicates equality
 		 */
-		_equalIndex: function(a, b) {
+		_equalIndex(a, b) {
 			return (a + 1) == b;
 		}
-	})
+	}
+
+	customElements.define(CurrentSlide.is, CurrentSlide);
 </script>
